@@ -12,7 +12,7 @@ from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from validation_tools import util
-
+from sklearn.externals import joblib
 
 
 
@@ -62,17 +62,23 @@ if __name__ == '__main__':
         print "Best C is"+str(logitmodel.C_)
         exploreC=util.find_new_explore_c(exploreC, best_val)
     
-    
+    joblib.dump(logitmodel, '../../data/models/logit_model.plk')
     print logitmodel.score(X_test, target_test)
     truePIx=np.logical_and(target_test==1,predictions==1)
     trueNIx=np.logical_and(target_test==0,predictions==0)
     falsePIx=np.logical_and(target_test==0,predictions==1)
     falseNIx=np.logical_and(target_test==1,predictions==0)
-    print np.sum(truePIx)+np.sum(trueNIx)+np.sum(falsePIx)+np.sum(falseNIx)
+    
+    
     
     conf=confusion_matrix(target_test, predictions, labels=[1,0])
     print conf
     
+    train_predictions=logitmodel.predict(X)
+    confusion_train=confusion_matrix(target_train, train_predictions, labels=[1,0])
+    print "train confusion matrix"
+    print logitmodel.score(X,target_train)
+    print confusion_train
     labelsFig=np.array([None]*X_test.shape[0])
    
     labelsFig[truePIx]='lime'
@@ -92,23 +98,7 @@ if __name__ == '__main__':
     plt.show()
     plt.clf()
     
-    xx, yy = np.mgrid[-5:5:.01, -5:5:.01]
-    f, ax = plt.subplots(figsize=(8, 6))
-    grid=np.c_[xx.ravel(),yy.ravel()]
-    grid=np.c_[grid,np.zeros((xx.ravel().shape[0],10))]
-    probs = logitmodel.predict_proba(grid)[:, 1].reshape(xx.shape)
-    print probs
-    contour = ax.contourf(xx, yy, probs, 25, cmap="RdBu",
-                      vmin=0, vmax=1)
-    ax_c = f.colorbar(contour)
-    ax_c.set_label("$P(y = 1)$")
-    ax_c.set_ticks([0, .25, .5, .75, 1])
-    ax.scatter(X_test[:,0], X_test[:, 1], c=labelsFig.tolist(), s=50,cmap="RdBu", vmin=-5, vmax=5,edgecolor="white", linewidth=1)
-
-    ax.set(aspect="equal",
-       xlim=(-5, 5), ylim=(-5, 5),
-       xlabel="$X_1$", ylabel="$X_2$")
-    #plt.show()
+   
     
     
      

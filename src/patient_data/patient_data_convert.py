@@ -18,9 +18,10 @@ def convertToFloat(x):
     return float(x)
 
    
-file_path = path.relpath("../../data/DatasSet5.csv")
+file_path = path.relpath("../../data/DatasSet6.csv")
 
 df=pd.read_csv(file_path, header=0, delimiter=';')
+df=df.dropna(0,'any')
 df['morto']=df['morto'].replace('N' ,0)
 df['morto']=df['morto'].replace('Y' ,1)
 df=df.rename(columns={'morto':'target'})
