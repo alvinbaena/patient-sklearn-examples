@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 from sklearn import linear_model
 from sklearn.metrics import confusion_matrix
+from sklearn.metrics import f1_score
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from validation_tools import util
@@ -16,10 +17,12 @@ from sklearn.externals import joblib
 
 
 
+
 if __name__ == '__main__':
     np.random.seed(0)
 
     saps_data=pd.read_pickle("../../data/df/saps.pickle").values
+
     target=pd.read_pickle("../../data/df/target.pickle").values
     indices = np.random.permutation(len(target))
 
@@ -42,7 +45,7 @@ if __name__ == '__main__':
     
     exploreC=[0.0001,0.001,0.01,0.1,1,10]
     for i in range(0,5):
-        logitmodelInitSAPS=linear_model.LogisticRegressionCV(exploreC, fit_intercept=True, cv=5,  penalty='l2', dual=False,  solver='liblinear',  n_jobs=-1, verbose=0, refit=True, random_state=0,  scoring='f1_weighted')
+        logitmodelInitSAPS=linear_model.LogisticRegressionCV(exploreC, fit_intercept=True, cv=5,  penalty='l2', dual=False,  solver='liblinear',  n_jobs=-1, verbose=0, refit=True, random_state=0,  scoring='f1')
         
     
         logitmodelInitSAPS.fit(saps_data_train,target_train)
@@ -58,7 +61,7 @@ if __name__ == '__main__':
         
     joblib.dump(logitmodelInitSAPS, '../../data/models/saps_init_model.plk') 
     train_predictions= logitmodelInitSAPS.predict(saps_data_train)
-    
+    print "F1-Train saps init error is: "+str(f1_score(target_train, train_predictions, labels=[1,0]))
     truePIx=np.logical_and(target_train==1,train_predictions==1)
     trueNIx=np.logical_and(target_train==0,train_predictions==0)
     falsePIx=np.logical_and(target_train==0,train_predictions==1)
@@ -79,12 +82,12 @@ if __name__ == '__main__':
     ax.scatter(np.arange(len(train_predictions)), train_predictions, saps_data_train[:, 0] ,  c=labelsFig.tolist())
     plt.show()
     
-    print logitmodelInitSAPS.score(saps_data_test, target_test)
+    print "F1-Test saps init error is: "+str(f1_score(target_test, predictions, labels=[1,0]))
     truePIx=np.logical_and(target_test==1,predictions==1)
     trueNIx=np.logical_and(target_test==0,predictions==0)
     falsePIx=np.logical_and(target_test==0,predictions==1)
     falseNIx=np.logical_and(target_test==1,predictions==0)
-    print np.sum(truePIx)+np.sum(trueNIx)+np.sum(falsePIx)+np.sum(falseNIx)
+   
      
     conf_initial_scores=confusion_matrix(target_test, predictions, labels=[1,0])
     print conf_initial_scores
@@ -112,7 +115,7 @@ if __name__ == '__main__':
     saps_data_test=saps_data[indices[num_train:]]
     exploreC=[0.0001,0.001,0.01,0.1,1,10]
     for i in range(0,5):
-        logitmodelAllSAPS=linear_model.LogisticRegressionCV(exploreC, fit_intercept=True, cv=5,  penalty='l2', dual=False,  solver='liblinear',  n_jobs=-1, verbose=0, refit=True, random_state=0,  scoring='f1_weighted')
+        logitmodelAllSAPS=linear_model.LogisticRegressionCV(exploreC, fit_intercept=True, cv=5,  penalty='l2', dual=False,  solver='liblinear',  n_jobs=-1, verbose=0, refit=True, random_state=0,  scoring='f1')
         
     
         logitmodelAllSAPS.fit(saps_data_train,target_train)
@@ -126,8 +129,9 @@ if __name__ == '__main__':
         exploreC=util.find_new_explore_c(exploreC, best_val)
 
     joblib.dump(logitmodelAllSAPS, '../../data/models/saps_all_model.plk')
-    train_predictions= logitmodelAllSAPS.predict(saps_data_train)
     
+    train_predictions= logitmodelAllSAPS.predict(saps_data_train)
+    print "F1-Train saps all error is: "+str(f1_score(target_train, train_predictions, labels=[1,0])) 
     truePIx=np.logical_and(target_train==1,train_predictions==1)
     trueNIx=np.logical_and(target_train==0,train_predictions==0)
     falsePIx=np.logical_and(target_train==0,train_predictions==1)
@@ -148,7 +152,7 @@ if __name__ == '__main__':
     ax.scatter(np.arange(len(train_predictions)), train_predictions, saps_data_train[:, 0] ,  c=labelsFig.tolist())
     plt.show()
     
-    print logitmodelAllSAPS.score(saps_data_test, target_test)
+    print "F1-Test saps all error is: "+str(f1_score(target_test, predictions, labels=[1,0])) 
     truePIx=np.logical_and(target_test==1,predictions==1)
     trueNIx=np.logical_and(target_test==0,predictions==0)
     falsePIx=np.logical_and(target_test==0,predictions==1)

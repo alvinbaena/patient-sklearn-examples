@@ -10,7 +10,7 @@ Cambia el formato del dataset a pickles
 
 import pandas as pd
 from os import path
-import re
+
 
 def convertToFloat(x):
     if isinstance(x,str):

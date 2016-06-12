@@ -1,6 +1,6 @@
 '''
 Created on 7/06/2016
-Busca una regresion lineal sobre datasets de pacientes usando Logistic Regression
+Busca una regresion sobre datasets de pacientes usando Logistic Regression
 preprocesamiento con transformacion PCA de los datos
 @author: Andres Moreno B
 '''
@@ -9,10 +9,12 @@ import pandas as pd
 from sklearn import decomposition
 from sklearn import linear_model
 from sklearn.metrics import confusion_matrix
+from sklearn.metrics import f1_score
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from validation_tools import util
 from sklearn.externals import joblib
+from sklearn import preprocessing
 
 
 
@@ -21,6 +23,7 @@ if __name__ == '__main__':
     np.random.seed(0)
 
     patient_data=pd.read_pickle("../../data/df/dataset.pickle").values
+    patient_data=preprocessing.scale(patient_data)
     target=pd.read_pickle("../../data/df/target.pickle").values
     indices = np.random.permutation(len(target))
 
@@ -51,8 +54,9 @@ if __name__ == '__main__':
     X_test=pca.transform(patient_data_test)
     
     exploreC=[0.0001,0.001,0.01,0.1,1,10]
+    best_score=float('-inf')
     for i in range(1,5):
-        logitmodel=linear_model.LogisticRegressionCV(exploreC, fit_intercept=True, cv=5,  penalty='l2', dual=False,  solver='liblinear',  n_jobs=-1, verbose=0, refit=True, random_state=0,  scoring='f1_weighted')
+        logitmodel=linear_model.LogisticRegressionCV(exploreC, fit_intercept=True, cv=5,  penalty='l2', dual=False,  solver='liblinear',  n_jobs=-1, verbose=0, refit=True, random_state=0,  scoring='f1')
     
         logitmodel.fit(X,target_train)
         predictions= logitmodel.predict(X_test)
@@ -60,24 +64,25 @@ if __name__ == '__main__':
         best_val=logitmodel.C_
         print "CV averages for values "+str(exploreC)+" are:"+str(np.average(scores,0))
         print "Best C is"+str(logitmodel.C_)
+        if np.max(np.average(scores,0))>best_score:
+            best_score=np.max(np.average(scores,0))
         exploreC=util.find_new_explore_c(exploreC, best_val)
     
     joblib.dump(logitmodel, '../../data/models/logit_model.plk')
-    print logitmodel.score(X_test, target_test)
+    
     truePIx=np.logical_and(target_test==1,predictions==1)
     trueNIx=np.logical_and(target_test==0,predictions==0)
     falsePIx=np.logical_and(target_test==0,predictions==1)
     falseNIx=np.logical_and(target_test==1,predictions==0)
     
-    
-    
     conf=confusion_matrix(target_test, predictions, labels=[1,0])
+    print "F1-Test logit model score "+str(f1_score(target_test, predictions, labels=[1,0]))
     print conf
     
     train_predictions=logitmodel.predict(X)
     confusion_train=confusion_matrix(target_train, train_predictions, labels=[1,0])
+    print "F1-Train logit model score "+str(f1_score(target_train, train_predictions, labels=[1,0]))
     print "train confusion matrix"
-    print logitmodel.score(X,target_train)
     print confusion_train
     labelsFig=np.array([None]*X_test.shape[0])
    
@@ -97,16 +102,3 @@ if __name__ == '__main__':
     ax.scatter(X_test[:, 0], X_test[:, 1], X_test[:, 2], c=labelsFig.tolist())
     plt.show()
     plt.clf()
-    
-   
-    
-    
-     
-
-
-
-
-
-
-
-

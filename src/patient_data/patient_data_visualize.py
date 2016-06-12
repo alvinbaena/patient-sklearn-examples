@@ -11,7 +11,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from sklearn import decomposition
 
 
-visualizarCuantos=2000
+how_many_visualize=2000
 np.random.seed(0)
 
 patient_data=pd.read_pickle("../../data/df/dataset.pickle").values
@@ -28,9 +28,9 @@ ax = Axes3D(fig, rect=[0, 0, .95, 1], elev=48, azim=134)
 plt.cla()
 #keep 80% of variance
 pca = decomposition.PCA(n_components=0.95)
-pca.fit(patient_data[indices[1:visualizarCuantos]])
-X = pca.transform(patient_data[indices[1:visualizarCuantos]])
-target=target[[indices[1:visualizarCuantos]]]
+pca.fit(patient_data[indices[1:how_many_visualize]])
+X = pca.transform(patient_data[indices[1:how_many_visualize]])
+target=target[[indices[1:how_many_visualize]]]
 
 
 #for name, label in [('Dead', 0), ('Survive', 1)]:
