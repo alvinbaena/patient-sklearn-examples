@@ -59,7 +59,8 @@ if __name__ == '__main__':
         exploreC=util.find_new_explore_c(exploreC, best_val)
          
         
-    joblib.dump(logitmodelInitSAPS, '../../data/models/saps_init_model.plk') 
+    joblib.dump(logitmodelInitSAPS, '../../data/models/saps_init_model.plk')
+    np.save('../../data/predictions/saps_init_model_predictions.npy', predictions) 
     train_predictions= logitmodelInitSAPS.predict(saps_data_train)
     print "F1-Train saps init error is: "+str(f1_score(target_train, train_predictions, labels=[1,0]))
     truePIx=np.logical_and(target_train==1,train_predictions==1)
@@ -129,7 +130,7 @@ if __name__ == '__main__':
         exploreC=util.find_new_explore_c(exploreC, best_val)
 
     joblib.dump(logitmodelAllSAPS, '../../data/models/saps_all_model.plk')
-    
+    np.save('../../data/predictions/saps_all_model_predictions.npy', predictions)
     train_predictions= logitmodelAllSAPS.predict(saps_data_train)
     print "F1-Train saps all error is: "+str(f1_score(target_train, train_predictions, labels=[1,0])) 
     truePIx=np.logical_and(target_train==1,train_predictions==1)

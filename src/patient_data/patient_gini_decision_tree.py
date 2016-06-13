@@ -42,6 +42,7 @@ if __name__ == '__main__':
     decision_tree_model.fit(patient_data_train,target_train)
     predictions=decision_tree_model.predict(patient_data_test)
     joblib.dump(decision_tree_model, '../../data/models/decision_tree_model.plk')
+    np.save('../../data/predictions/decision_tree_predictions.npy', predictions)
     print "Feature importances are "+str(decision_tree_model.feature_importances_)
     truePIx=np.logical_and(target_test==1,predictions==1)
     trueNIx=np.logical_and(target_test==0,predictions==0)

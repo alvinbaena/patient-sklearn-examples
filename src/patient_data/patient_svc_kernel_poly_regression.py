@@ -99,9 +99,10 @@ if __name__ == '__main__':
                                      decision_function_shape=None , random_state=0)
         svm_poly_model.fit(X,target_train)
     
-    
-        joblib.dump(svm_poly_model, '../../data/models/svm_poly'+str(poly[j])+'_model.plk')
         predictions=svm_poly_model.predict(X_test)
+        joblib.dump(svm_poly_model, '../../data/models/svm_poly'+str(poly[j])+'_model.plk')
+        np.save('../../data/predictions/svm_poly'+str(poly[j])+'_model_predictions.npy', predictions)
+        
         truePIx=np.logical_and(target_test==1,predictions==1)
         trueNIx=np.logical_and(target_test==0,predictions==0)
         falsePIx=np.logical_and(target_test==0,predictions==1)

@@ -92,9 +92,10 @@ if __name__ == '__main__':
                                      decision_function_shape='ovr' , random_state=0)
     svm_linear_model.fit(X,target_train)
     
-   
-    joblib.dump(svm_linear_model, '../../data/models/svm_model.plk')
     predictions=svm_linear_model.predict(X_test)
+    joblib.dump(svm_linear_model, '../../data/models/svm_model.plk')
+    np.save('../../data/predictions/svm_model_predictions.npy', predictions)
+    
     
     truePIx=np.logical_and(target_test==1,predictions==1)
     trueNIx=np.logical_and(target_test==0,predictions==0)

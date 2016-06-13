@@ -90,6 +90,8 @@ if __name__ == '__main__':
     svm_rbf_model.fit(X,target_train) 
     joblib.dump(svm_rbf_model, '../../data/models/svm_rbf_model.plk')
     predictions=svm_rbf_model.predict(X_test)
+    np.save('../../data/predictions//svm_rbf_mode_predictions.npy', predictions)
+    
     
     truePIx=np.logical_and(target_test==1,predictions==1)
     trueNIx=np.logical_and(target_test==0,predictions==0)

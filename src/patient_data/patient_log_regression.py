@@ -69,6 +69,7 @@ if __name__ == '__main__':
         exploreC=util.find_new_explore_c(exploreC, best_val)
     
     joblib.dump(logitmodel, '../../data/models/logit_model.plk')
+    np.save('../../data/predictions/logit_model_predictions.npy', predictions)
     
     truePIx=np.logical_and(target_test==1,predictions==1)
     trueNIx=np.logical_and(target_test==0,predictions==0)
