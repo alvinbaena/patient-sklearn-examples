@@ -66,7 +66,7 @@ if __name__ == '__main__':
     
     plt.legend(loc='lower right')
     plt.plot([0,1],[0,1],color='black', linestyle='dashed')
-    plt.xlim([-0.01,1.1])
+    plt.xlim([-0.01,1.2])
     plt.ylim([-0.01,1.1])
     plt.ylabel('True Positive Rate')
     plt.xlabel('False Positive Rate')
