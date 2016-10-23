@@ -4,19 +4,18 @@ Visualiza el dataset de pacientes
 @author: Andres Moreno B.
 '''
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn import decomposition
 
-
-how_many_visualize=2000
+how_many_visualize = 2000
 np.random.seed(0)
 
-patient_data=pd.read_pickle("../../data/df/dataset.pickle").values
+patient_data = pd.read_pickle("../../data/df/dataset.pickle").values
 indices = np.random.permutation(len(patient_data))
-target=pd.read_pickle("../../data/df/target.pickle").values
+target = pd.read_pickle("../../data/df/target.pickle").values
 
 centers = [[1, 1], [-1, -1], [1, -1]]
 fig = plt.figure(1, figsize=(4, 3))
@@ -26,21 +25,20 @@ plt.clf()
 ax = Axes3D(fig, rect=[0, 0, .95, 1], elev=48, azim=134)
 
 plt.cla()
-#keep 80% of variance
+# keep 80% of variance
 pca = decomposition.PCA(n_components=0.95)
 pca.fit(patient_data[indices[1:how_many_visualize]])
 X = pca.transform(patient_data[indices[1:how_many_visualize]])
-target=target[[indices[1:how_many_visualize]]]
+target = target[[indices[1:how_many_visualize]]]
 
-
-#for name, label in [('Dead', 0), ('Survive', 1)]:
+# for name, label in [('Dead', 0), ('Survive', 1)]:
 #    ax.text3D(X[target == label, 0].mean(),
 #              X[target == label, 1].mean() + 1.5,
 #              X[target == label, 2].mean(), name,
 #              horizontalalignment='center',
 #              bbox=dict(alpha=.5, edgecolor='w', facecolor='w'))
 # Reorder the labels to have colors matching the cluster results
-#y = np.choose(target, [1, 2, 0]).astype(np.float)
+# y = np.choose(target, [1, 2, 0]).astype(np.float)
 print target
 print type(target)
 ax.scatter(X[:, 0], X[:, 1], X[:, 2], c=target)
