@@ -38,18 +38,19 @@ if __name__ == '__main__':
     predictions = decision_tree_model.predict(patient_data_test)
     joblib.dump(decision_tree_model, '../../data/models/decision_tree_model.plk')
     np.save('../../data/predictions/decision_tree_predictions.npy', predictions)
-    print "Feature importances are " + str(decision_tree_model.feature_importances_)
+    print "Feature importances are \n" + str(decision_tree_model.feature_importances_)
     truePIx = np.logical_and(target_test == 1, predictions == 1)
     trueNIx = np.logical_and(target_test == 0, predictions == 0)
     falsePIx = np.logical_and(target_test == 0, predictions == 1)
     falseNIx = np.logical_and(target_test == 1, predictions == 0)
 
-    conf = confusion_matrix(target_test, predictions, labels=[1, 0])
+    confusion_test = confusion_matrix(target_test, predictions, labels=[1, 0])
     print "F1-Test decision tree model score " + str(f1_score(target_test, predictions, labels=[1, 0]))
-    print conf
+    print "Test confusion matrix "
+    print confusion_test
 
     train_predictions = decision_tree_model.predict(patient_data_train)
     confusion_train = confusion_matrix(target_train, train_predictions, labels=[1, 0])
     print "F1-Train logit model score " + str(f1_score(target_train, train_predictions, labels=[1, 0]))
-    print "train confusion matrix"
+    print "train confusion matrix "
     print confusion_train

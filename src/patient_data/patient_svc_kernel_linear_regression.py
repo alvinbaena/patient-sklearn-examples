@@ -1,6 +1,6 @@
 '''
 Created on 11/06/2016
-Busca una clasificacion sobre datasets de pacientes usando SVM con kernel polinomial
+Busca una clasificacion sobre datasets de pacientes usando SVM con kernel lineal
 preprocesamiento con transformacion PCA de los datos
 @author: Andres Moreno B
 '''
@@ -96,10 +96,12 @@ if __name__ == '__main__':
 
     conf = confusion_matrix(target_test, predictions, labels=[1, 0])
     print "F1-Test linear kernel model score " + str(f1_score(target_test, predictions, labels=[1, 0]))
+    print "Test confusion matrix"
     print conf
 
     train_predictions = svm_linear_model.predict(X)
     confusion_train = confusion_matrix(target_train, train_predictions, labels=[1, 0])
 
     print "F1-Train linear kernel model score " + str(f1_score(target_train, train_predictions, labels=[1, 0]))
+    print "train confusion matrix"
     print confusion_train

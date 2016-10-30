@@ -82,7 +82,7 @@ if __name__ == '__main__':
                 best_c = exploreC[index_val]
                 best_poly = poly[j]
             print "CV averages for values " + str(exploreC) + " are:" + str(results)
-            print "Best C is" + str(exploreC[index_val])
+            print "Best C is " + str(exploreC[index_val])
             exploreC = util.find_new_explore_c(exploreC, exploreC[index_val])
 
         svm_poly_model = svm.SVC(best_c, kernel='poly',
@@ -102,15 +102,19 @@ if __name__ == '__main__':
         falseNIx = np.logical_and(target_test == 1, predictions == 0)
 
         conf = confusion_matrix(target_test, predictions, labels=[1, 0])
-        print "F1-Test linear kernel model score poly" + str(poly[j]) + " " + str(
+        print "F1-Test linear kernel model score poly " + str(poly[j]) + " " + str(
             f1_score(target_test, predictions, labels=[1, 0]))
-        print "Confusion poly " + str(poly[j]) + " " + str(conf)
+        print "test confusion poly " + str(poly[j]) + " \n" + str(conf)
 
         train_predictions = svm_poly_model.predict(X)
         confusion_train = confusion_matrix(target_train, train_predictions, labels=[1, 0])
-        print "F1-Train linear kernel model score poly" + str(poly[j]) + " " + str(
+        print "F1-Train linear kernel model score poly " + str(poly[j]) + " " + str(
             f1_score(target_train, train_predictions, labels=[1, 0]))
+        print "train confusion matrix"
         print confusion_train
 
     print "Best c " + str(best_c)
     print "Best poly " + str(best_poly)
+
+    # Best c 20.950669
+    # Best poly 4

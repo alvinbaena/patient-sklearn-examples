@@ -60,8 +60,8 @@ if __name__ == '__main__':
         predictions = logitmodel.predict(X_test)
         scores = logitmodel.scores_[1]
         best_val = logitmodel.C_
-        print "CV averages for values " + str(exploreC) + " are:" + str(np.average(scores, 0))
-        print "Best C is" + str(logitmodel.C_)
+        print "CV averages for values [cross " + str(i) + "]" + str(exploreC) + " are:" + str(np.average(scores, 0))
+        print "Best C [cross " + str(i) + "] is" + str(logitmodel.C_)
         if np.max(np.average(scores, 0)) > best_score:
             best_score = np.max(np.average(scores, 0))
         exploreC = util.find_new_explore_c(exploreC, best_val)
@@ -74,9 +74,10 @@ if __name__ == '__main__':
     falsePIx = np.logical_and(target_test == 0, predictions == 1)
     falseNIx = np.logical_and(target_test == 1, predictions == 0)
 
-    conf = confusion_matrix(target_test, predictions, labels=[1, 0])
+    confusion_test = confusion_matrix(target_test, predictions, labels=[1, 0])
     print "F1-Test logit model score " + str(f1_score(target_test, predictions, labels=[1, 0]))
-    print conf
+    print "Test confusion matrix"
+    print confusion_test
 
     train_predictions = logitmodel.predict(X)
     confusion_train = confusion_matrix(target_train, train_predictions, labels=[1, 0])
@@ -85,14 +86,11 @@ if __name__ == '__main__':
     print confusion_train
     labelsFig = np.array([None] * X_test.shape[0])
 
-    labelsFig[truePIx] = 'lime'
-
+    labelsFig[truePIx] = 'blue'
     labelsFig[trueNIx] = 'green'
     labelsFig[falsePIx] = 'red'
     labelsFig[falseNIx] = 'black'
 
-    fig = plt.figure(1, figsize=(4, 3))
-    plt.clf()
     fig = plt.figure(1, figsize=(4, 3))
     plt.clf()
     ax = Axes3D(fig, rect=[0, 0, .95, 1], elev=48, azim=134)

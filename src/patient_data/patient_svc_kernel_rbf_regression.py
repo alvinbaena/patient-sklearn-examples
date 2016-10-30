@@ -90,10 +90,12 @@ if __name__ == '__main__':
 
     conf = confusion_matrix(target_test, predictions, labels=[1, 0])
     print "F1-Test rbf kernel model score " + str(f1_score(target_test, predictions, labels=[1, 0]))
+    print "test confusion matrix"
     print conf
 
     train_predictions = svm_rbf_model.predict(X)
     confusion_train = confusion_matrix(target_train, train_predictions, labels=[1, 0])
 
     print "F1-Train rbf kernel model score " + str(f1_score(target_train, train_predictions, labels=[1, 0]))
+    print "train confusion matrix"
     print confusion_train

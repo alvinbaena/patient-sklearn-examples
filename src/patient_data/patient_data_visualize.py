@@ -37,8 +37,9 @@ target = target[[indices[1:how_many_visualize]]]
 #              X[target == label, 2].mean(), name,
 #              horizontalalignment='center',
 #              bbox=dict(alpha=.5, edgecolor='w', facecolor='w'))
-# Reorder the labels to have colors matching the cluster results
+# # Reorder the labels to have colors matching the cluster results
 # y = np.choose(target, [1, 2, 0]).astype(np.float)
+
 print target
 print type(target)
 ax.scatter(X[:, 0], X[:, 1], X[:, 2], c=target)
@@ -53,7 +54,7 @@ ax.scatter(X[:, 0], X[:, 1], X[:, 2], c=target)
 # v0 /= v0[-1]
 # v1 = pca.transform(pca.components_[[1]])
 # v1 /= v1[-1]
-# 
+#
 # ax.w_xaxis.set_ticklabels([])
 # ax.w_yaxis.set_ticklabels([])
 # ax.w_zaxis.set_ticklabels([])

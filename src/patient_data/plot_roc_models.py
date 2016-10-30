@@ -31,9 +31,9 @@ if __name__ == '__main__':
 
     all_predictions = dict()
 
-    saps_all_model_predictions = np.load('../../data/predictions/saps_all_model_predictions.npy')
-    saps_init_model_predictions = np.load('../../data/predictions/saps_init_model_predictions.npy')
-    all_predictions['Initial SAPS model'] = saps_init_model_predictions
+    # saps_all_model_predictions = np.load('../../data/predictions/saps_all_model_predictions.npy')
+    # saps_init_model_predictions = np.load('../../data/predictions/saps_init_model_predictions.npy')
+    # all_predictions['Initial SAPS model'] = saps_init_model_predictions
 
     decision_tree_predictions = np.load('../../data/predictions/decision_tree_predictions.npy')
     all_predictions['Gini decision tree'] = decision_tree_predictions
