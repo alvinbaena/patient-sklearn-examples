@@ -19,7 +19,7 @@ from validation_tools import util
 if __name__ == '__main__':
     np.random.seed(0)
 
-    patient_data = pd.read_pickle("../../data/df/patient_med_data.pickle").values
+    patient_data = pd.read_pickle("../../data/df/medical.pickle").values
     patient_data = preprocessing.scale(patient_data)
     target = pd.read_pickle("../../data/df/target.pickle").values
     indices = np.random.permutation(len(target))

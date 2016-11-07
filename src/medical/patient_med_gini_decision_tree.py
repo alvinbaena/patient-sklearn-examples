@@ -15,14 +15,14 @@ from sklearn.tree import DecisionTreeClassifier
 if __name__ == '__main__':
     np.random.seed(0)
 
-    patient_data = pd.read_pickle("../../data/df/patient_med_data.pickle").values
+    patient_data = pd.read_pickle("../../data/df/medical.pickle").values
     patient_data = preprocessing.scale(patient_data)
     target = pd.read_pickle("../../data/df/target.pickle").values
     indices = np.random.permutation(len(target))
 
     # Split 60% for training and 40% fomr "cross-validation"
     print "Total dataset size: " + str(patient_data.shape[0])
-    num_train = int(np.floor(patient_data.shape[0] * 0.6))
+    num_train = int(np.floor(patient_data.shape[0] * 0.75))
     print "Train set size: " + str(num_train)
 
     patient_data_train = patient_data[indices[0:num_train]]
@@ -37,8 +37,8 @@ if __name__ == '__main__':
                                                  max_depth=None)
     decision_tree_model.fit(patient_data_train, target_train)
     predictions = decision_tree_model.predict(patient_data_test)
-    joblib.dump(decision_tree_model, '../../data/models/med_dur_decision_tree_model.plk')
-    np.save('../../data/predictions/med_dur_decision_tree_predictions.npy', predictions)
+    joblib.dump(decision_tree_model, '../../data/models/med_decision_tree_model.plk')
+    np.save('../../data/predictions/logit_med_dur_model_predictions.npy', predictions)
     print "Feature importances are \n" + str(decision_tree_model.feature_importances_)
     truePIx = np.logical_and(target_test == 1, predictions == 1)
     trueNIx = np.logical_and(target_test == 0, predictions == 0)
