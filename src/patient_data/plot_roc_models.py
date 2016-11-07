@@ -31,24 +31,62 @@ if __name__ == '__main__':
 
     all_predictions = dict()
 
+    # Fisiologicas
     # saps_all_model_predictions = np.load('../../data/predictions/saps_all_model_predictions.npy')
     # saps_init_model_predictions = np.load('../../data/predictions/saps_init_model_predictions.npy')
     # all_predictions['Initial SAPS model'] = saps_init_model_predictions
 
-    decision_tree_predictions = np.load('../../data/predictions/decision_tree_predictions.npy')
-    all_predictions['Gini decision tree'] = decision_tree_predictions
-    logit_model_predictions = np.load('../../data/predictions/logit_model_predictions.npy')
-    all_predictions['Logistic regression'] = logit_model_predictions
+    # decision_tree_predictions = np.load('../../data/predictions/decision_tree_predictions.npy')
+    # all_predictions['Gini decision tree'] = decision_tree_predictions
+    # logit_model_predictions = np.load('../../data/predictions/logit_model_predictions.npy')
+    # all_predictions['Logistic regression'] = logit_model_predictions
+    #
+    # svm_model_predictions = np.load('../../data/predictions/svm_model_predictions.npy')
+    # all_predictions['Linear SVM'] = svm_model_predictions
+    # svm_poly2_model_predictions = np.load('../../data/predictions/svm_poly2_model_predictions.npy')
+    # svm_poly3_model_predictions = np.load('../../data/predictions/svm_poly3_model_predictions.npy')
+    # all_predictions['Polynomial n=3 SVM'] = svm_poly3_model_predictions
+    # svm_poly4_model_predictions = np.load('../../data/predictions/svm_poly4_model_predictions.npy')
+    # all_predictions['Polynomial n=4 SVM'] = svm_poly4_model_predictions
+    # svm_poly5_model_predictions = np.load('../../data/predictions/svm_poly5_model_predictions.npy')
+    # svm_rbf_mode_predictions = np.load('../../data/predictions/svm_rbf_mode_predictions.npy')
+    # all_predictions['RBF  SVM'] = svm_rbf_mode_predictions
 
-    svm_model_predictions = np.load('../../data/predictions/svm_model_predictions.npy')
-    all_predictions['Linear SVM'] = svm_model_predictions
-    svm_poly2_model_predictions = np.load('../../data/predictions/svm_poly2_model_predictions.npy')
-    svm_poly3_model_predictions = np.load('../../data/predictions/svm_poly3_model_predictions.npy')
-    all_predictions['Polynomial n=3 SVM'] = svm_poly3_model_predictions
-    svm_poly4_model_predictions = np.load('../../data/predictions/svm_poly4_model_predictions.npy')
-    svm_poly5_model_predictions = np.load('../../data/predictions/svm_poly5_model_predictions.npy')
-    svm_rbf_mode_predictions = np.load('../../data/predictions/svm_rbf_mode_predictions.npy')
-    all_predictions['RBF  SVM'] = svm_rbf_mode_predictions
+    # Duracion
+
+    # decision_tree_predictions = np.load('../../data/predictions/med_dur_decision_tree_predictions.npy')
+    # all_predictions['Gini decision tree'] = decision_tree_predictions
+    # logit_model_predictions = np.load('../../data/predictions/med_dur_logit_model_predictions.npy')
+    # all_predictions['Logistic regression'] = logit_model_predictions
+    #
+    # svm_model_predictions = np.load('../../data/predictions/svm_med_dur_model_predictions.npy')
+    # all_predictions['Linear SVM'] = svm_model_predictions
+    # svm_poly2_model_predictions = np.load('../../data/predictions/svm_med_dur_poly2_model_predictions.npy')
+    # svm_poly3_model_predictions = np.load('../../data/predictions/svm_med_dur_poly3_model_predictions.npy')
+    # all_predictions['Polynomial n=3 SVM'] = svm_poly3_model_predictions
+    # svm_poly4_model_predictions = np.load('../../data/predictions/svm_med_dur_poly4_model_predictions.npy')
+    # all_predictions['Polynomial n=4 SVM'] = svm_poly4_model_predictions
+    # svm_poly5_model_predictions = np.load('../../data/predictions/svm_med_dur_poly5_model_predictions.npy')
+    # svm_rbf_mode_predictions = np.load('../../data/predictions/svm_rbf_med_dur_mode_predictions.npy')
+    # all_predictions['RBF  SVM'] = svm_rbf_mode_predictions
+
+    # Recencia
+
+    # decision_tree_predictions = np.load('../../data/predictions/med_rec_decision_tree_predictions.npy')
+    # all_predictions['Gini decision tree'] = decision_tree_predictions
+    # logit_model_predictions = np.load('../../data/predictions/med_rec_logit_model_predictions.npy')
+    # all_predictions['Logistic regression'] = logit_model_predictions
+    #
+    # svm_model_predictions = np.load('../../data/predictions/svm_med_rec_model_predictions.npy')
+    # all_predictions['Linear SVM'] = svm_model_predictions
+    # svm_poly2_model_predictions = np.load('../../data/predictions/svm_med_rec_poly2_model_predictions.npy')
+    # svm_poly3_model_predictions = np.load('../../data/predictions/svm_med_rec_poly3_model_predictions.npy')
+    # all_predictions['Polynomial n=3 SVM'] = svm_poly3_model_predictions
+    # svm_poly4_model_predictions = np.load('../../data/predictions/svm_med_rec_poly4_model_predictions.npy')
+    # all_predictions['Polynomial n=4 SVM'] = svm_poly4_model_predictions
+    # svm_poly5_model_predictions = np.load('../../data/predictions/svm_med_rec_poly5_model_predictions.npy')
+    # svm_rbf_mode_predictions = np.load('../../data/predictions/svm_rbf_med_rec_mode_predictions.npy')
+    # all_predictions['RBF  SVM'] = svm_rbf_mode_predictions
 
     plt.title('Receiver Operating Characteristic')
 
