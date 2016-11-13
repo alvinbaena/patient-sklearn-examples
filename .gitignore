@@ -5,3 +5,4 @@ data/
 .idea/misc.xml
 .idea/workspace.xml
 classes/
+.idea/deployment.xml
