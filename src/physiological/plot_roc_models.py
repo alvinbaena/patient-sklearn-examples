@@ -45,14 +45,14 @@ if __name__ == '__main__':
     all_predictions['Linear SVM'] = svm_model_predictions
     svm_poly2_model_predictions = np.load('../../data/predictions/svm_poly2_model_predictions.npy')
     svm_poly3_model_predictions = np.load('../../data/predictions/svm_poly3_model_predictions.npy')
-    all_predictions['Polynomial n=3 SVM'] = svm_poly3_model_predictions
+    # all_predictions['Polynomial n=3 SVM'] = svm_poly3_model_predictions
     svm_poly4_model_predictions = np.load('../../data/predictions/svm_poly4_model_predictions.npy')
     all_predictions['Polynomial n=4 SVM'] = svm_poly4_model_predictions
     svm_poly5_model_predictions = np.load('../../data/predictions/svm_poly5_model_predictions.npy')
     svm_rbf_mode_predictions = np.load('../../data/predictions/svm_rbf_mode_predictions.npy')
     all_predictions['RBF  SVM'] = svm_rbf_mode_predictions
 
-    plt.title('Receiver Operating Characteristic')
+    plt.title('ROC ICD-9')
 
     for key in all_predictions.keys():
         false_positive_rate, true_positive_rate, thresholds = roc_curve(target_test, all_predictions[key], pos_label=1)

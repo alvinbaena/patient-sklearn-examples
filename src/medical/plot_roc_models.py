@@ -49,7 +49,7 @@ if __name__ == '__main__':
     svm_rbf_mode_predictions = np.load('../../data/predictions/svm_rbf_med_dur_mode_predictions.npy')
     all_predictions['RBF SVM'] = svm_rbf_mode_predictions
 
-    plt.title('Receiver Operating Characteristic')
+    plt.title('ROC ICD-9 + Meds U/hr')
 
     for key in all_predictions.keys():
         false_positive_rate, true_positive_rate, thresholds = roc_curve(target_test, all_predictions[key], pos_label=1)
