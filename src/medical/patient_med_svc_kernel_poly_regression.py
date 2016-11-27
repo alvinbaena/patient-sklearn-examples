@@ -65,6 +65,7 @@ if __name__ == '__main__':
                                          verbose=False, max_iter=-1,
                                          decision_function_shape='ovr', random_state=0)
 
+                # scores_cv = cross_validation.cross_val_score(svm_poly_model, patient_data_train,
                 scores_cv = cross_validation.cross_val_score(svm_poly_model, X,
                                                              target_train,
                                                              scoring='f1_weighted', cv=5,
@@ -91,8 +92,10 @@ if __name__ == '__main__':
                                  verbose=False, max_iter=-1,
                                  decision_function_shape=None, random_state=0)
         svm_poly_model.fit(X, target_train)
+        # svm_poly_model.fit(patient_data_train, target_train)
 
         predictions = svm_poly_model.predict(X_test)
+        # predictions = svm_poly_model.predict(patient_data_test)
         joblib.dump(svm_poly_model, '../../data/models/svm_med_dur_poly' + str(poly[j]) + '_model.plk')
         np.save('../../data/predictions/svm_med_dur_poly' + str(poly[j]) + '_model_predictions.npy', predictions)
 
@@ -107,6 +110,7 @@ if __name__ == '__main__':
         print "test confusion poly " + str(poly[j]) + " \n" + str(conf)
 
         train_predictions = svm_poly_model.predict(X)
+        # train_predictions = svm_poly_model.predict(patient_data_train)
         confusion_train = confusion_matrix(target_train, train_predictions, labels=[1, 0])
         print "F1-Train linear kernel model score poly " + str(poly[j]) + " " + str(
             f1_score(target_train, train_predictions, labels=[1, 0]))

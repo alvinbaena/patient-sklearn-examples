@@ -23,7 +23,11 @@ def convert_to_float(x):
 # file_path = path.relpath("../../data/DataSet1_icd9_mcghr.csv")
 # file_path = path.relpath("../../data/DataSet2_icd9_mcgkghr.csv")
 # file_path = path.relpath("../../data/DataSet3_icd9_uhr.csv")
-file_path = path.relpath("../../data/DataSet1_icd9_med.csv")
+# file_path = path.relpath("../../data/DataSet1_icd9_med.csv")
+# file_path = path.relpath("../../data/DataSet1_add_mcghr.csv")
+# file_path = path.relpath("../../data/DataSet2_add_mcgkghr.csv")
+# file_path = path.relpath("../../data/DataSet3_add_uhr.csv")
+file_path = path.relpath("../../data/DataSet4_add_all.csv")
 
 df = pd.read_csv(file_path, header=0, delimiter=';')
 df = df.dropna(0, 'any')

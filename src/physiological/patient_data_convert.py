@@ -17,7 +17,7 @@ def convert_to_float(x):
     return float(x)
 
 
-file_path = path.relpath("../../data/DatasSet5.csv")
+file_path = path.relpath("../../data/DataSet1_icd9_add.csv")
 
 df = pd.read_csv(file_path, header=0, delimiter=';')
 df = df.dropna(0, 'any')
@@ -26,11 +26,11 @@ df['morto'] = df['morto'].replace('Y', 1)
 df = df.rename(columns={'morto': 'target'})
 print df.columns.values
 
-sapsDf = df[['SAPSI_FIRST', 'SAPSI_MIN', 'SAPSI_MAX']]
-print sapsDf
-
-sofaDf = df[['SOFA_FIRST', 'SOFA_MIN', 'SOFA_MAX']]
-print sofaDf
+# sapsDf = df[['SAPSI_FIRST', 'SAPSI_MIN', 'SAPSI_MAX']]
+# print sapsDf
+#
+# sofaDf = df[['SOFA_FIRST', 'SOFA_MIN', 'SOFA_MAX']]
+# print sofaDf
 
 drop_indeces = [i for i, val in enumerate(df.columns.values)
                 if (val.startswith('0_') or val.startswith('1_')
@@ -51,5 +51,5 @@ df = df.applymap(lambda x: convert_to_float(x))
 df.to_pickle("../../data/df/dataset.pickle")
 data_target.to_pickle("../../data/df/target.pickle")
 patient_id.to_pickle("../../data/df/ids.pickle")
-sapsDf.to_pickle("../../data/df/saps.pickle")
-sofaDf.to_pickle("../../data/df/sofa.pickle")
+# sapsDf.to_pickle("../../data/df/saps.pickle")
+# sofaDf.to_pickle("../../data/df/sofa.pickle")

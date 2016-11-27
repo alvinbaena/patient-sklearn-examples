@@ -65,6 +65,7 @@ if __name__ == '__main__':
 
         clf = GridSearchCV(svm_rbf_model, param_grid, cv=5,
                            scoring='f1')
+        # clf.fit(patient_data_train, target_train)
         clf.fit(X, target_train)
         print(clf.best_params_)
         exploreC = util.find_new_explore_c(exploreC, clf.best_params_['C'])
@@ -78,8 +79,10 @@ if __name__ == '__main__':
                             probability=False, cache_size=2000,
                             verbose=False, max_iter=-1,
                             decision_function_shape='ovr', random_state=0)
+    # svm_rbf_model.fit(patient_data_train, target_train)
     svm_rbf_model.fit(X, target_train)
     joblib.dump(svm_rbf_model, '../../data/models/svm_rbf_med_dur_model.plk')
+    # predictions = svm_rbf_model.predict(patient_data_test)
     predictions = svm_rbf_model.predict(X_test)
     np.save('../../data/predictions/svm_rbf_med_dur_mode_predictions.npy', predictions)
 
@@ -93,6 +96,7 @@ if __name__ == '__main__':
     print "test confusion matrix"
     print conf
 
+    # train_predictions = svm_rbf_model.predict(patient_data_train)
     train_predictions = svm_rbf_model.predict(X)
     confusion_train = confusion_matrix(target_train, train_predictions, labels=[1, 0])
 

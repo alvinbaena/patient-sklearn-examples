@@ -60,6 +60,7 @@ if __name__ == '__main__':
                                        verbose=False, max_iter=-1,
                                        decision_function_shape='ovr', random_state=0)
 
+            # scores_cv = cross_validation.cross_val_score(svm_linear_model, patient_data_train,
             scores_cv = cross_validation.cross_val_score(svm_linear_model, X,
                                                          target_train,
                                                          scoring='f1', cv=5,
@@ -83,8 +84,10 @@ if __name__ == '__main__':
                                probability=False, cache_size=2000,
                                verbose=False, max_iter=-1,
                                decision_function_shape='ovr', random_state=0)
+    # svm_linear_model.fit(patient_data_train, target_train)
     svm_linear_model.fit(X, target_train)
 
+    # predictions = svm_linear_model.predict(patient_data_test)
     predictions = svm_linear_model.predict(X_test)
     joblib.dump(svm_linear_model, '../../data/models/svm_med_dur_model.plk')
     np.save('../../data/predictions/svm_med_dur_model_predictions.npy', predictions)
@@ -99,6 +102,7 @@ if __name__ == '__main__':
     print "Test confusion matrix"
     print conf
 
+    # train_predictions = svm_linear_model.predict(patient_data_train)
     train_predictions = svm_linear_model.predict(X)
     confusion_train = confusion_matrix(target_train, train_predictions, labels=[1, 0])
 

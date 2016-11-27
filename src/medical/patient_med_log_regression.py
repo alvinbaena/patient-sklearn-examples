@@ -56,6 +56,8 @@ if __name__ == '__main__':
                                                        solver='liblinear', n_jobs=-1, verbose=0, refit=True,
                                                        random_state=0, scoring='f1')
 
+        # logitmodel.fit(patient_data_train, target_train)
+        # predictions = logitmodel.predict(patient_data_test)
         logitmodel.fit(X, target_train)
         predictions = logitmodel.predict(X_test)
         scores = logitmodel.scores_[1]
@@ -79,11 +81,13 @@ if __name__ == '__main__':
     print "Test confusion matrix"
     print confusion_test
 
+    # train_predictions = logitmodel.predict(patient_data_train)
     train_predictions = logitmodel.predict(X)
     confusion_train = confusion_matrix(target_train, train_predictions, labels=[1, 0])
     print "F1-Train logit model score " + str(f1_score(target_train, train_predictions, labels=[1, 0]))
     print "train confusion matrix"
     print confusion_train
+    # labelsFig = np.array([None] * patient_data_test.shape[0])
     labelsFig = np.array([None] * X_test.shape[0])
 
     labelsFig[truePIx] = 'blue'
@@ -95,6 +99,7 @@ if __name__ == '__main__':
     plt.clf()
     ax = Axes3D(fig, rect=[0, 0, .95, 1], elev=48, azim=134)
 
+    # ax.scatter(patient_data_test[:, 0], patient_data_test[:, 1], patient_data_test[:, 2], c=labelsFig.tolist())
     ax.scatter(X_test[:, 0], X_test[:, 1], X_test[:, 2], c=labelsFig.tolist())
     plt.show()
     plt.clf()
